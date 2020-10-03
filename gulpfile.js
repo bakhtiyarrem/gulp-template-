@@ -13,14 +13,14 @@ let path = {
         html: [source_folder + "/*.html", "!" + source_folder + "/_*.html"],
         css: source_folder + "/scss/index.scss",
         js: source_folder + "/js/script.js",
-        img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp}",
+        img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp,svg,jpeg}",
         fonts: source_folder + "/fonts/**/*.ttf",
     },
     watch: {
         html: source_folder + "/",
         css: source_folder + "/scss/**/*.scss",
         js: source_folder + "/js/**/*.js",
-        img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp}",
+        img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp,svg,jpeg}",
     },
     clean: "./" + project_folder + "/"
 }
@@ -50,7 +50,7 @@ function browserSync(params) {
         server: {
             baseDir: "./" + project_folder + "/"
         },
-        port: 3000,
+        port: 4444,
         notify: false
     })
 }
@@ -58,7 +58,6 @@ function browserSync(params) {
 function html() {
     return src(path.src.html)
         .pipe(fileinclude())
-        .pipe(webphtml())
         .pipe(dest(path.build.html))
         .pipe(browsersync.stream())
 }
@@ -106,9 +105,6 @@ function js() {
 
 function images() {
     return src(path.src.img)
-        .pipe(webp({
-            quality: 70
-        }))
         .pipe(dest(path.build.img))
         .pipe(src(path.src.img))
         .pipe(imagemin({
