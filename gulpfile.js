@@ -37,9 +37,6 @@ let { src, dest } = require('gulp'),
     gulp_rename = require('gulp-rename'),
     uglify = require('gulp-uglify-es').default,
     imagemin = require('gulp-imagemin'),
-    webp = require('gulp-webp'),
-    webphtml = require('gulp-webp-html'),
-    webpcss = require('gulp-webp-css'),
     ttf2woff = require('gulp-ttf2woff'),
     ttf2woff2 = require('gulp-ttf2woff2'),
     fonter = require('gulp-fonter'),
@@ -77,7 +74,6 @@ function css() {
                 cascade: true
             })
         )
-        .pipe(webpcss())
         .pipe(dest(path.build.css))
         .pipe(clean_css())
         .pipe(
@@ -125,10 +121,10 @@ function fonts() {
         .pipe(ttf2woff2())
         .pipe(dest(path.build.fonts))
 }
-function functionsvgSprite(){
+function functionsvgSprite() {
     return gulp.src([source_folder + '/iconsprite/*.svg'])
         .pipe(svgSprite({
-            mode :{
+            mode: {
                 stack: {
                     sprite: "../icons/icons.svg"
                 }
